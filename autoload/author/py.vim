@@ -54,7 +54,6 @@ fu! author#py#populate(bfn, tick, data)
 
   let src = 0
   for elem in a:data
-    let elem.text = substitute(elem.text, '\\n', "\n", 'g')
     let line = elem['lnum'] - 1
     let column = elem['col'] - 1
     let b = min([column, len(getline(line + 1)) - 1])

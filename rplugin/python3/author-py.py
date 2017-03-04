@@ -15,8 +15,9 @@ class Collector:
         item['bufnr'] = self.bufnr
         item['filename'] = filename
         item['lnum'] = lineno
-        item['col'] = offset + 1
-        item['text'] = msg + '\n' + text
+        item['text'] = msg
+        if offset is not None:
+            item['col'] = offset + 1
         item['type'] = 'E'
         self.data.append(item)
 
