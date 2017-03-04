@@ -1,6 +1,5 @@
 import neovim
-
-from pyflakes.api import check
+import pyflakes.api
 
 
 class Collector:
@@ -46,6 +45,5 @@ class AuthorPy:
         collector = Collector(bufnr)
         buf = self.vim.buffers[bufnr]
         text = '\n'.join(buf)
-        check(text, buf.name, collector)
-        self.vim.command('call author#py#populate({}, {}, {})'.format(
-            bufnr, tick, collector.data))
+        pyflakes.api.check(text, buf.name, collector)
+        self.vim.call('author#py#populate', bufnr, tick, collector.data)
