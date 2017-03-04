@@ -11,24 +11,26 @@ class Collector:
         pass
 
     def syntaxError(self, filename, msg, lineno, offset, text):
-        item = {}
-        item['bufnr'] = self.bufnr
-        item['filename'] = filename
-        item['lnum'] = lineno
-        item['text'] = msg
+        item = {
+            'bufnr': self.bufnr,
+            'filename': filename,
+            'lnum': lineno,
+            'text': msg,
+            'type': 'E'
+        }
         if offset is not None:
             item['col'] = offset + 1
-        item['type'] = 'E'
         self.data.append(item)
 
     def flake(self, obj):
-        item = {}
-        item['bufnr'] = self.bufnr
-        item['filename'] = obj.filename
-        item['lnum'] = obj.lineno
-        item['col'] = obj.col + 1
-        item['text'] = (obj.message % obj.message_args)
-        item['type'] = 'W'
+        item = {
+            'bufnr': self.bufnr,
+            'filename': obj.filename,
+            'lnum': obj.lineno,
+            'col': obj.col + 1,
+            'text': (obj.message % obj.message_args),
+            'type': 'W'
+        }
         self.data.append(item)
 
 
