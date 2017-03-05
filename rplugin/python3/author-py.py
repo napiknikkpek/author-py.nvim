@@ -49,4 +49,8 @@ class AuthorPy:
         buf = self.vim.buffers[bufnr]
         text = '\n'.join(buf)
         pyflakes.api.check(text, buf.name, collector)
-        self.vim.call('author#py#populate', bufnr, tick, collector.data)
+
+        def func():
+            self.vim.call('author#py#populate', bufnr, tick, collector.data)
+
+        self.vim.async_call(func)
